@@ -98,23 +98,25 @@ res.send(finalresult)
  app.get('/chart/:id',async (req,res)=>{
   // console.log("hehre")
 
-
+var id=req.params.id
 console.log(finalresult)
 
 var local = await finalresult.filter(async function(element) {
 
-  console.log(element.Serial,"===",req.params.id)
-  return await element.Serial===req.params.id;
+  console.log(element.Serial,"===",id)
+  console.log(element)
+  return  element.Serial.trim().toLowerCase()==id.trim().toLowerCase();
 });
 
-console.log(local)
+console.log('110',local.length,finalresult.length)
+
 var p=[],x=[];
 local.map((item,index)=>{
   p.push(new Date(item.ReadingDateTimeUTC.split(" ")[0].split("/")[2],item.ReadingDateTimeUTC.split(" ")[0].split("/")[1],item.ReadingDateTimeUTC.split(" ")[0].split("/")[0]))
 })
 
 local.map((item,index)=>{
-  console.log(item)
+  // console.log(item)
   x.push(parseInt(item.WH))
 })
 // res.send(local)
